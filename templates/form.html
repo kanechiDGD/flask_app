@@ -34,6 +34,17 @@
             font-weight: bold;
             color: green;
         }
+        input[type="submit"] {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
     </style>
 </head>
 <body>
@@ -48,10 +59,16 @@
                 <p><strong>Dirección:</strong> {{ row['Dirección'] }}</p>
                 
                 <label>¿Fue Suplementado?</label>
-                <input type="radio" name="suplementado_{{ index }}" value="Sí" onclick="updateSelection('{{ index }}', 'Sí')"> Sí
-                <input type="radio" name="suplementado_{{ index }}" value="No" onclick="updateSelection('{{ index }}', 'No')"> No
+                <input type="radio" name="suplementado_{{ index }}" value="Sí" 
+                       onclick="updateSelection('{{ index }}', 'Sí')"
+                       {% if row['Suplementado'] == 'Sí' %} checked {% endif %}> Sí
+                <input type="radio" name="suplementado_{{ index }}" value="No" 
+                       onclick="updateSelection('{{ index }}', 'No')"
+                       {% if row['Suplementado'] == 'No' %} checked {% endif %}> No
                 
-                <p id="response_{{ index }}" class="respuesta">Respuesta: {{ row['Suplementado'] if 'Suplementado' in row else 'Pendiente' }}</p>
+                <p id="response_{{ index }}" class="respuesta">Respuesta: 
+                    {{ row['Suplementado'] if row['Suplementado'] else 'Pendiente' }}
+                </p>
             </div>
             {% endfor %}
             
